@@ -1,0 +1,36 @@
+%undefine _disable_source_fetch
+
+Name:               {{{ git_dir_name }}}
+Version:            {{{ git_dir_version lead=1.5 }}}
+Release:            1%{?dist}
+Summary:            Freescale/NXP I.MX Chip image deploy tools.
+
+License:            BSD-3
+URL:                https://github.com/nxp-imx/mfgtools
+VCS:                {{{ git_dir_vcs }}}
+
+Source:             {{{ git_dir_pack }}}
+
+BuildRequires:      gcc-c++ cmake libusb1-devel bzip2-devel libzstd-devel pkgconf-pkg-config openssl-devel zlib-devel
+
+
+%description
+Freescale/NXP I.MX Chip image deploy tools.
+
+%prep
+{{{ git_dir_setup_macro }}}
+echo %{version} > .tarball-version
+
+%build
+%cmake
+%cmake_build
+
+%install
+%cmake_install
+
+%files
+%license LICENSE
+%{_bindir}/uuu
+
+%changelog
+{{{ git_dir_changelog }}}
